@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- WebWaka Digital Operating System -->
+    <title>WebWaka - Africa's Premier AI-Powered Digital Operating System</title>
+    <meta name="description" content="WebWaka Digital Operating System - Africa's Premier AI-Powered Partner-Driven Digital Transformation Operating System serving 1 billion Africans across 54 countries." />
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#1a365d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="WebWaka" />
+    
+    <!-- African Mobile Optimization -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <!-- Social Media Meta Tags -->
+    <meta property="og:title" content="WebWaka - Africa's Premier AI-Powered Digital Operating System" />
+    <meta property="og:description" content="Empowering every African with world-class AI-powered digital tools that respect cultural intelligence and promote economic inclusion." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://webwaka.xyz" />
+    <meta property="og:image" content="https://webwaka.xyz/og-image.png" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="WebWaka - Africa's Premier AI-Powered Digital Operating System" />
+    <meta name="twitter:description" content="Empowering every African with world-class AI-powered digital tools." />
+    <meta name="twitter:image" content="https://webwaka.xyz/twitter-image.png" />
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    
+    <!-- Preconnect to improve performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.webwaka.xyz" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
