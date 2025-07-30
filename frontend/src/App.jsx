@@ -13,7 +13,8 @@ function App() {
     // Fetch API status from backend
     const fetchApiStatus = async () => {
       try {
-        const response = await fetch('/api/status')
+        const apiUrl = process.env.REACT_APP_API_URL || '/api'
+        const response = await fetch(`${apiUrl}/status`)
         const data = await response.json()
         setApiStatus(data)
       } catch (error) {

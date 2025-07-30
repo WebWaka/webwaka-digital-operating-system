@@ -21,14 +21,14 @@
   NODE_ENV = "production"
   
   # WebWaka specific environment variables
-  REACT_APP_API_URL = "https://api.webwaka.xyz"
+  REACT_APP_API_URL = "https://webwaka.com.ng"
   REACT_APP_ENVIRONMENT = "production"
   REACT_APP_VERSION = "1.0.0"
 
 # Custom domain configuration
 [[redirects]]
   from = "https://webwaka.netlify.app/*"
-  to = "https://webwaka.xyz/:splat"
+  to = "https://webwaka.com.ng/:splat"
   status = 301
   force = true
 
@@ -103,7 +103,7 @@
   
 [context.deploy-preview.environment]
   NODE_ENV = "preview"
-  REACT_APP_API_URL = "https://api-preview.webwaka.xyz"
+  REACT_APP_API_URL = "https://preview.webwaka.com.ng"
   REACT_APP_ENVIRONMENT = "preview"
 
 # Branch deploys configuration
@@ -112,7 +112,7 @@
   
 [context.branch-deploy.environment]
   NODE_ENV = "staging"
-  REACT_APP_API_URL = "https://api-staging.webwaka.xyz"
+  REACT_APP_API_URL = "https://staging.webwaka.com.ng"
   REACT_APP_ENVIRONMENT = "staging"
 
 # Development context
@@ -182,7 +182,7 @@
 
 # Identity (for authentication)
 [identity]
-  url = "https://webwaka.xyz/.netlify/identity"
+  url = "https://webwaka.com.ng/.netlify/identity"
 
 # Git LFS
 [lfs]

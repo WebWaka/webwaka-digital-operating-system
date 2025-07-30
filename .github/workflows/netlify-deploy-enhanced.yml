@@ -166,15 +166,15 @@ jobs:
     - name: Run post-deployment tests
       run: |
         sleep 30
-        curl -f https://webwaka.xyz/api/health || exit 1
-        curl -f https://webwaka.xyz/api/status || exit 1
+        curl -f https://webwaka.com.ng/api/health || exit 1
+        curl -f https://webwaka.com.ng/api/status || exit 1
         
     - name: Notify deployment success
       if: success()
       run: |
         echo "🚀 WebWaka deployed successfully to production!"
-        echo "🌐 URL: https://webwaka.xyz"
-        echo "📊 API Health: https://webwaka.xyz/api/health"
+        echo "🌐 URL: https://webwaka.com.ng"
+        echo "📊 API Health: https://webwaka.com.ng/api/health"
         
     - name: Notify deployment failure
       if: failure()
@@ -238,9 +238,9 @@ jobs:
       uses: treosh/lighthouse-ci-action@v9
       with:
         urls: |
-          https://webwaka.xyz
-          https://webwaka.xyz/api/health
-          https://webwaka.xyz/api/status
+          https://webwaka.com.ng
+          https://webwaka.com.ng/api/health
+          https://webwaka.com.ng/api/status
         uploadArtifacts: true
         temporaryPublicStorage: true
         
@@ -261,9 +261,9 @@ jobs:
       if: needs.build-and-deploy.result == 'success'
       run: |
         echo "✅ WebWaka deployment completed successfully!"
-        echo "🌐 Production: https://webwaka.xyz"
-        echo "🔗 API Health: https://webwaka.xyz/api/health"
-        echo "📊 API Status: https://webwaka.xyz/api/status"
+        echo "🌐 Production: https://webwaka.com.ng"
+        echo "🔗 API Health: https://webwaka.com.ng/api/health"
+        echo "📊 API Status: https://webwaka.com.ng/api/status"
         echo "🚀 Performance tests completed"
         
     - name: Notify failure
