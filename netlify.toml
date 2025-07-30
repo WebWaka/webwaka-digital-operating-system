@@ -1,14 +1,14 @@
 # WebWaka Digital Operating System - Netlify Configuration
 
 [build]
-  # Build command for the frontend
-  command = "npm run build"
+  # Build command for the full-stack application
+  command = "cd frontend && npm install && npm run build && cd ../backend && cp -r src/static/* ../frontend/dist/ 2>/dev/null || true"
   
   # Directory to publish (build output)
   publish = "frontend/dist"
   
   # Base directory for build
-  base = "frontend"
+  base = "."
 
 [build.environment]
   # Node.js version
@@ -32,10 +32,10 @@
   status = 301
   force = true
 
-# API proxy for backend services
+# API proxy for backend services (serverless functions)
 [[redirects]]
   from = "/api/*"
-  to = "https://api.webwaka.xyz/:splat"
+  to = "/.netlify/functions/api/:splat"
   status = 200
 
 # SPA routing - redirect all routes to index.html
@@ -128,6 +128,7 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+  external_node_modules = ["express", "cors", "serverless-http"]
 
 # Plugin configuration
 [[plugins]]
