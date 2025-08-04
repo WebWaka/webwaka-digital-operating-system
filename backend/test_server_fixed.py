@@ -1,41 +1,50 @@
-#!/usr/bin/env python3
 """
-WebWaka Digital Operating System - Test Backend Server
-Simplified version for testing core functionality
+WebWaka Digital Operating System - Backend Test Server
+Simplified Flask application for testing and development
 """
 
 import os
-import sys
-
-# Add project root to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app, origins='*')
+# Import AI providers
+from ai_providers import ai_manager
 
-@app.route('/api/health')
-def health_check():
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/')
+def home():
+    """Home endpoint"""
     return jsonify({
-        'status': 'healthy',
         'service': 'WebWaka Digital Operating System',
         'version': '1.0.0',
+        'message': 'Africa\'s Premier AI-Powered Digital Transformation Operating System',
+        'status': 'operational'
+    })
+
+@app.route('/api/health')
+def health():
+    """Health check endpoint"""
+    return jsonify({
+        'service': 'WebWaka Digital Operating System',
+        'version': '1.0.0',
+        'status': 'healthy',
         'message': 'Africa\'s Premier AI-Powered Digital Transformation Operating System'
     })
 
 @app.route('/api/status')
-def api_status():
+def status():
+    """System status endpoint"""
     return jsonify({
-        'webwaka': {
-            'status': 'operational',
-            'cellular_architecture': 'active',
-            'sectors': 42,
-            'subsectors': 504,
-            'cellular_modules': '25,200+',
-            'ai_integration': 'ready',
-            'partner_ecosystem': 'initialized',
+        'service': 'WebWaka Digital Operating System',
+        'version': '1.0.0',
+        'status': 'operational',
+        'components': {
+            'cellular_architecture': 'enabled',
+            'ai_ecosystem': 'enabled',
+            'voice_interface': 'enabled',
+            'offline_capabilities': 'enabled',
             'african_optimization': 'enabled'
         }
     })
@@ -68,7 +77,6 @@ def ai_chat():
         'success': True,
         'data': 'AI chat functionality will be available once dependencies are installed',
         'provider': 'mock',
-        'model': 'test',
         'cost': 0.0,
         'response_time': 0.1
     })
