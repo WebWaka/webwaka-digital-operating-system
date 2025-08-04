@@ -1,0 +1,24 @@
+# WebWaka Digital Operating System - Netlify Redirects
+
+# API proxy to serverless functions
+/api/*  /.netlify/functions/api/:splat  200
+
+# SPA routing - all routes should serve index.html
+/*    /index.html   200
+
+# Custom domain redirects
+https://webwaka.netlify.app/*  https://webwaka.com.ng/:splat  301!
+
+# Security redirects
+/admin/*  /  302
+/.env  /  404
+/.git/*  /  404
+/config/*  /  404
+
+# Legacy redirects (if any)
+/old-path  /new-path  301
+
+# Error pages
+/404  /index.html  404
+/500  /index.html  500
+
