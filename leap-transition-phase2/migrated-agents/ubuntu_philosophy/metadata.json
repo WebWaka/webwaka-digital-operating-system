@@ -1,0 +1,47 @@
+{
+  "name": "Ubuntu Philosophy",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Digital Operating System - Ubuntu Philosophy Agent (Agent 25) Community-centered approach integration with Ubuntu principles, collective responsibility, traditional governance, elder wisdom, and consensus-building mechanisms  Author: WebWaka Development Team Version: 4.0.0 License: MIT",
+  "ubuntu_integration_score": 10.0,
+  "african_optimization_score": 2.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import re",
+    "from datetime import datetime",
+    "from typing import Dict, List, Any, Optional, Tuple",
+    "from dataclasses import dataclass, asdict",
+    "from enum import Enum",
+    "import sqlite3",
+    "from pathlib import Path",
+    "import uuid",
+    "import math"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "elder_integration",
+    "consensus_integration",
+    "collective_integration",
+    "governance_integration",
+    "wisdom_integration"
+  ],
+  "traditional_knowledge_components": [
+    "traditional_knowledge",
+    "elder_wisdom"
+  ],
+  "community_consultation_requirements": [
+    "traditional_authority",
+    "consensus_building"
+  ],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

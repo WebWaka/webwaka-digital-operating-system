@@ -1,0 +1,41 @@
+{
+  "name": "Finance Management",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Finance Management Systems Agent (Agent 5) Comprehensive Financial Management with African Financial Inclusion Optimization  This agent provides comprehensive financial management capabilities with: - Banking and microfinance systems with mobile money integration - Investment and savings platforms with community-based approaches - Insurance management systems with agricultural and health focus - Payment processing systems with offline capabilities - Financial literacy and education programs with cultural context - Cooperative and group savings management with traditional rotating credit - Cryptocurrency and digital asset management with regulatory compliance - Financial inclusion strategies for underserved populations",
+  "ubuntu_integration_score": 7.0,
+  "african_optimization_score": 6.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import time",
+    "import sqlite3",
+    "import os",
+    "from typing import Dict, List, Optional, Any, Tuple",
+    "from dataclasses import dataclass, asdict",
+    "from datetime import datetime, timedelta",
+    "from enum import Enum",
+    "import statistics",
+    "import random",
+    "import uuid",
+    "import hashlib"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "elder_integration",
+    "collective_integration",
+    "governance_integration"
+  ],
+  "traditional_knowledge_components": [],
+  "community_consultation_requirements": [],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

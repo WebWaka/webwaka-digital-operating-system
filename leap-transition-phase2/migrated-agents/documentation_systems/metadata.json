@@ -1,0 +1,47 @@
+{
+  "name": "Documentation Systems",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Documentation Systems Agent (Agent 8) Comprehensive Technical Documentation  This agent provides comprehensive documentation capabilities with: - Automated API documentation generation - User guide creation with African context - Developer documentation and code examples - Multi-language documentation support - Interactive documentation with voice integration - Cultural adaptation for African business contexts",
+  "ubuntu_integration_score": 6.0,
+  "african_optimization_score": 7.0,
+  "dependencies": [
+    "import os",
+    "import json",
+    "import logging",
+    "import asyncio",
+    "import inspect",
+    "import ast",
+    "import re",
+    "from typing import Dict, List, Optional, Any, Callable",
+    "from dataclasses import dataclass, asdict",
+    "from datetime import datetime",
+    "import markdown",
+    "import jinja2",
+    "from pathlib import Path",
+    "import yaml",
+    "import subprocess",
+    "from flask import Flask, request, jsonify",
+    "from backend.ai_ecosystem_integration import AIOrchestrator",
+    "import React from 'react';",
+    "import { TouchOptimizedButton } from './MobileOptimizationAgent';",
+    "import pytest",
+    "from backend.voice_interface_agent import VoiceInterfaceAgent"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "elder_integration",
+    "wisdom_integration"
+  ],
+  "traditional_knowledge_components": [],
+  "community_consultation_requirements": [],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

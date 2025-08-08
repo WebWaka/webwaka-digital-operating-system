@@ -1,0 +1,48 @@
+{
+  "name": "Regional Customization",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Digital Operating System - Regional Customization Agent (Agent 27) 54 African nations adaptation with national cultural profiles, regional economic integration, language localization, regulatory compliance, and cultural business protocols  Author: WebWaka Development Team Version: 4.0.0 License: MIT",
+  "ubuntu_integration_score": 8.0,
+  "african_optimization_score": 4.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import re",
+    "from datetime import datetime",
+    "from typing import Dict, List, Any, Optional, Tuple",
+    "from dataclasses import dataclass, asdict",
+    "from enum import Enum",
+    "import sqlite3",
+    "from pathlib import Path",
+    "import uuid",
+    "import random"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "elder_integration",
+    "consensus_integration",
+    "collective_integration",
+    "governance_integration",
+    "wisdom_integration",
+    "heritage_integration"
+  ],
+  "traditional_knowledge_components": [
+    "cultural_heritage"
+  ],
+  "community_consultation_requirements": [
+    "community_consultation",
+    "consensus_building",
+    "collective_decision"
+  ],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

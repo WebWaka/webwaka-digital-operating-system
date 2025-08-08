@@ -1,0 +1,50 @@
+{
+  "name": "Government Management",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Government Management Systems Agent (Agent 7) Comprehensive Governance Management with African Democratic and Traditional Leadership Integration  This agent provides comprehensive government management capabilities with: - Public administration systems with citizen service delivery optimization - Democratic governance platforms with traditional leadership integration - Public finance management with transparency and accountability systems - Citizen engagement and participation systems with community involvement - Policy development and implementation tracking with cultural sensitivity - Electoral management systems with traditional consensus building - Public service delivery optimization with community-based approaches - Inter-governmental coordination with traditional authority recognition",
+  "ubuntu_integration_score": 8.0,
+  "african_optimization_score": 5.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import time",
+    "import sqlite3",
+    "import os",
+    "from typing import Dict, List, Optional, Any, Tuple",
+    "from dataclasses import dataclass, asdict",
+    "from datetime import datetime, timedelta",
+    "from enum import Enum",
+    "import statistics",
+    "import random",
+    "import uuid",
+    "import hashlib"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "elder_integration",
+    "consensus_integration",
+    "collective_integration",
+    "governance_integration",
+    "wisdom_integration"
+  ],
+  "traditional_knowledge_components": [
+    "traditional_governance",
+    "community_ownership"
+  ],
+  "community_consultation_requirements": [
+    "community_consultation",
+    "traditional_authority",
+    "consensus_building"
+  ],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

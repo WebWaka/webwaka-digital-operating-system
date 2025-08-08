@@ -1,0 +1,43 @@
+{
+  "name": "Voice Interface",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Voice Interface Agent (Agent 5) African Language Voice Processing Enhancement  This agent provides comprehensive voice interface capabilities with: - Multi-language African speech recognition - Cultural adaptation and Ubuntu philosophy integration - Voice synthesis with African accents and cultural nuances - Business workflow voice activation - Offline-first voice processing for poor connectivity areas",
+  "ubuntu_integration_score": 6.0,
+  "african_optimization_score": 4.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import time",
+    "from typing import Dict, List, Optional, Any",
+    "from dataclasses import dataclass",
+    "from enum import Enum",
+    "import requests",
+    "import speech_recognition as sr",
+    "import pyttsx3",
+    "from gtts import gTTS",
+    "import io",
+    "import pygame",
+    "import tempfile",
+    "import os"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "cultural_integration",
+    "elder_integration",
+    "collective_integration",
+    "wisdom_integration"
+  ],
+  "traditional_knowledge_components": [
+    "elder_wisdom"
+  ],
+  "community_consultation_requirements": [],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

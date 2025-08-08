@@ -1,0 +1,44 @@
+{
+  "name": "Energy Management",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Energy Management Systems Agent (Agent 11) Energy Systems with Renewable Focus and Community Ownership  This agent provides comprehensive energy management capabilities with: - Renewable energy systems with solar, wind, and hydro integration - Community-owned energy cooperatives and microgrids - Traditional energy systems and modern technology integration - Energy efficiency and conservation programs - Grid management and distribution optimization - Energy storage and backup systems - Mobile-first interfaces optimized for African connectivity - Voice-first commands in 14+ African languages - Ubuntu philosophy integration for community-centered energy",
+  "ubuntu_integration_score": 7.0,
+  "african_optimization_score": 7.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import time",
+    "import sqlite3",
+    "import os",
+    "from typing import Dict, List, Optional, Any, Tuple",
+    "from dataclasses import dataclass, asdict",
+    "from datetime import datetime, timedelta",
+    "from enum import Enum",
+    "import statistics",
+    "import random",
+    "import uuid",
+    "import hashlib"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "consensus_integration",
+    "collective_integration",
+    "governance_integration",
+    "wisdom_integration"
+  ],
+  "traditional_knowledge_components": [
+    "community_ownership"
+  ],
+  "community_consultation_requirements": [],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

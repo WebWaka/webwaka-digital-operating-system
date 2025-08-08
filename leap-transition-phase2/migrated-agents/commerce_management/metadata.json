@@ -1,0 +1,39 @@
+{
+  "name": "Commerce Management",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Commerce Management Systems Agent (Agent 8) Comprehensive Business Management with African Market Optimization  This agent provides comprehensive commerce management capabilities with: - E-commerce platforms with offline-first capabilities for poor connectivity - Point of sale systems with mobile money integration and traditional payment methods - Supply chain management with local supplier networks and community cooperation - Customer relationship management with cultural sensitivity and community approach - Inventory management systems with seasonal and cultural considerations - Business analytics and reporting with African market insights - Digital marketing platforms with local language and cultural content - Trade facilitation systems with cross-border and regional integration",
+  "ubuntu_integration_score": 5.0,
+  "african_optimization_score": 10.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import time",
+    "import sqlite3",
+    "import os",
+    "from typing import Dict, List, Optional, Any, Tuple",
+    "from dataclasses import dataclass, asdict",
+    "from datetime import datetime, timedelta",
+    "from enum import Enum",
+    "import statistics",
+    "import random",
+    "import uuid",
+    "import hashlib"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "collective_integration"
+  ],
+  "traditional_knowledge_components": [],
+  "community_consultation_requirements": [],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}
