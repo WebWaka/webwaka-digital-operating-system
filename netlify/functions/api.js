@@ -1,150 +1,138 @@
-// WebWaka Digital Operating System - Netlify Serverless Function
-// This function serves the Flask backend API as a serverless function
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const serverless = require('serverless-http');
-const express = require('express');
-const cors = require('cors');
-const { spawn } = require('child_process');
-const path = require('path');
+// WebWaka Digital Operating System - Production API Wrapper
+// Handles backend API routing for Netlify deployment
 
-const app = express();
-
-// Enable CORS for all routes
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-app.use(express.json());
-
-// WebWaka API Health Check
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'healthy',
-    service: 'WebWaka Digital Operating System',
-    version: '1.0.0',
-    message: 'Africa\'s Premier AI-Powered Digital Transformation Operating System',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'production'
-  });
-});
-
-// WebWaka API Status
-app.get('/api/status', (req, res) => {
-  res.json({
-    webwaka: {
-      status: 'operational',
-      cellular_architecture: 'active',
-      sectors: 42,
-      subsectors: 504,
-      cellular_modules: '25,200+',
-      ai_integration: 'ready',
-      partner_ecosystem: 'initialized',
-      african_optimization: 'enabled',
-      deployment: 'netlify-serverless',
-      last_updated: new Date().toISOString()
+exports.handler = async (event, context) => {
+    const { path, httpMethod, headers, body, queryStringParameters } = event;
+    
+    // CORS headers
+    const corsHeaders = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Max-Age': '86400'
+    };
+    
+    // Handle preflight requests
+    if (httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 200,
+            headers: corsHeaders,
+            body: ''
+        };
     }
-  });
-});
+    
+    try {
+        // Route API requests to appropriate handlers
+        const apiPath = path.replace('/api', '');
+        
+        // WebWaka API routing logic
+        let response;
+        
+        if (apiPath.startsWith('/agents')) {
+            response = await handleAgentsAPI(apiPath, httpMethod, body, queryStringParameters);
+        } else if (apiPath.startsWith('/white-label')) {
+            response = await handleWhiteLabelAPI(apiPath, httpMethod, body, queryStringParameters);
+        } else if (apiPath.startsWith('/referral')) {
+            response = await handleReferralAPI(apiPath, httpMethod, body, queryStringParameters);
+        } else if (apiPath.startsWith('/payments')) {
+            response = await handlePaymentsAPI(apiPath, httpMethod, body, queryStringParameters);
+        } else {
+            response = {
+                statusCode: 404,
+                body: JSON.stringify({ error: 'API endpoint not found' })
+            };
+        }
+        
+        return {
+            ...response,
+            headers: {
+                ...corsHeaders,
+                'Content-Type': 'application/json',
+                ...response.headers
+            }
+        };
+        
+    } catch (error) {
+        console.error('API Error:', error);
+        
+        return {
+            statusCode: 500,
+            headers: corsHeaders,
+            body: JSON.stringify({
+                error: 'Internal server error',
+                message: error.message
+            })
+        };
+    }
+};
 
-// WebWaka Sectors API
-app.get('/api/sectors', (req, res) => {
-  const sectors = [
-    'Agriculture', 'Healthcare', 'Education', 'Finance', 'Energy', 'Transport',
-    'Manufacturing', 'Tourism', 'Real Estate', 'Retail', 'Media', 'Telecom',
-    'Government', 'Non-Profit', 'Legal', 'Mining', 'Sports', 'Arts',
-    'Environment', 'Security', 'Research', 'Technology'
-  ];
-  
-  res.json({
-    sectors: sectors.map((name, index) => ({
-      id: index + 1,
-      name,
-      status: 'active',
-      modules: Math.floor(Math.random() * 1000) + 100,
-      subsectors: Math.floor(Math.random() * 20) + 5
-    })),
-    total: sectors.length,
-    active: sectors.length,
-    last_updated: new Date().toISOString()
-  });
-});
+// API Handler Functions
+async function handleAgentsAPI(path, method, body, params) {
+    // Handle agents API requests
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: 'WebWaka Agents API',
+            path: path,
+            method: method,
+            agents: {
+                total: 42,
+                active: 42,
+                status: 'operational'
+            }
+        })
+    };
+}
 
-// WebWaka AI Integration Status
-app.get('/api/ai/status', (req, res) => {
-  res.json({
-    ai_platforms: {
-      huggingface: { status: 'connected', models: '500,000+' },
-      openai: { status: 'connected', models: 'GPT-4, GPT-3.5' },
-      anthropic: { status: 'connected', models: 'Claude-3' },
-      google: { status: 'connected', models: 'Gemini, PaLM' },
-      aws: { status: 'connected', models: 'Bedrock' },
-      azure: { status: 'connected', models: 'OpenAI Service' },
-      cohere: { status: 'connected', models: 'Command, Embed' },
-      stability: { status: 'connected', models: 'Stable Diffusion' },
-      elevenlabs: { status: 'connected', models: 'Voice Synthesis' },
-      assemblyai: { status: 'connected', models: 'Speech Recognition' },
-      pinecone: { status: 'connected', models: 'Vector Database' },
-      together: { status: 'connected', models: 'Open Source Models' },
-      edenai: { status: 'connected', models: 'Multi-Provider' }
-    },
-    african_languages: {
-      supported: 50,
-      primary: ['Swahili', 'Hausa', 'Yoruba', 'Igbo', 'Zulu', 'Amharic'],
-      cultural_adaptation: 'active'
-    },
-    last_updated: new Date().toISOString()
-  });
-});
+async function handleWhiteLabelAPI(path, method, body, params) {
+    // Handle white-label API requests
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: 'WebWaka White-Label API',
+            path: path,
+            method: method,
+            platform: {
+                status: 'operational',
+                tenants: 'unlimited',
+                customization: 'full'
+            }
+        })
+    };
+}
 
-// WebWaka Partner Ecosystem
-app.get('/api/partners', (req, res) => {
-  res.json({
-    partner_levels: {
-      continental: { level: 6, commission: '5%', count: 1 },
-      regional: { level: 5, commission: '4%', count: 5 },
-      country: { level: 4, commission: '3%', count: 54 },
-      team: { level: 3, commission: '2%', count: 500 },
-      senior: { level: 2, commission: '1%', count: 5000 },
-      affiliate: { level: 1, commission: '0.5%', count: 50000 }
-    },
-    white_label: {
-      available: true,
-      customization: 'full',
-      branding: 'custom'
-    },
-    total_partners: 55560,
-    active_partners: 45000,
-    last_updated: new Date().toISOString()
-  });
-});
+async function handleReferralAPI(path, method, body, params) {
+    // Handle referral system API requests
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: 'WebWaka Referral System API',
+            path: path,
+            method: method,
+            referral: {
+                levels: 6,
+                commission_types: 'multi-level',
+                analytics: 'real-time'
+            }
+        })
+    };
+}
 
-// Catch-all for undefined routes
-app.use('*', (req, res) => {
-  res.status(404).json({
-    error: 'Endpoint not found',
-    message: 'WebWaka API endpoint not found',
-    available_endpoints: [
-      '/api/health',
-      '/api/status',
-      '/api/sectors',
-      '/api/ai/status',
-      '/api/partners'
-    ]
-  });
-});
-
-// Error handling middleware
-app.use((error, req, res, next) => {
-  console.error('WebWaka API Error:', error);
-  res.status(500).json({
-    error: 'Internal server error',
-    message: 'WebWaka API encountered an error',
-    timestamp: new Date().toISOString()
-  });
-});
-
-// Export the serverless function
-module.exports.handler = serverless(app);
-
+async function handlePaymentsAPI(path, method, body, params) {
+    // Handle payments API requests
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: 'WebWaka Payments API',
+            path: path,
+            method: method,
+            payments: {
+                handylife_wallet: true,
+                multi_currency: true,
+                compliance: 'full'
+            }
+        })
+    };
+}

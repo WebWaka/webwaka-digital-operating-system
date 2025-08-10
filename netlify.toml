@@ -1,212 +1,40 @@
 # WebWaka Digital Operating System - Netlify Configuration
 
 [build]
-  # Build command for the full-stack application
-  command = "cd frontend && npm install && npm run build && cd ../backend && cp -r src/static/* ../frontend/dist/ 2>/dev/null || true"
-  
-  # Directory to publish (build output)
-  publish = "frontend/dist"
-  
-  # Base directory for build
   base = "."
+  publish = "build"
+  command = "npm install && npm run build"
 
 [build.environment]
-  # Node.js version
   NODE_VERSION = "18"
-  
-  # NPM version
-  NPM_VERSION = "9"
-  
-  # Environment
-  NODE_ENV = "production"
-  
-  # WebWaka specific environment variables
-  REACT_APP_API_URL = "https://webwaka.com.ng"
-  REACT_APP_ENVIRONMENT = "production"
-  REACT_APP_VERSION = "1.0.0"
+  PYTHON_VERSION = "3.11"
 
-# Custom domain configuration
-[[redirects]]
-  from = "https://webwaka.netlify.app/*"
-  to = "https://webwaka.com.ng/:splat"
-  status = 301
-  force = true
-
-# API proxy for backend services (serverless functions)
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  to = "/.netlify/functions/:splat"
   status = 200
 
-# SPA routing - redirect all routes to index.html
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Security headers
-[[headers]]
-  for = "/*"
-  [headers.values]
-    # Security headers
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    
-    # Content Security Policy
-    Content-Security-Policy = """
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;
-      font-src 'self' https://fonts.gstatic.com;
-      img-src 'self' data: https: blob:;
-      connect-src 'self' https://api.webwaka.xyz https://*.huggingface.co https://*.openai.com;
-      media-src 'self' blob:;
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self';
-      frame-ancestors 'none';
-    """
-    
-    # Performance headers
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# Static assets caching
-[[headers]]
-  for = "/static/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# API responses caching
-[[headers]]
-  for = "/api/*"
-  [headers.values]
-    Cache-Control = "no-cache, no-store, must-revalidate"
-
-# PWA configuration
-[[headers]]
-  for = "/manifest.json"
-  [headers.values]
-    Content-Type = "application/manifest+json"
-    Cache-Control = "public, max-age=86400"
-
-[[headers]]
-  for = "/sw.js"
-  [headers.values]
-    Content-Type = "application/javascript"
-    Cache-Control = "no-cache, no-store, must-revalidate"
-
-# Development preview configuration
-[context.deploy-preview]
-  command = "npm run build:preview"
-  
-[context.deploy-preview.environment]
-  NODE_ENV = "preview"
-  REACT_APP_API_URL = "https://preview.webwaka.com.ng"
-  REACT_APP_ENVIRONMENT = "preview"
-
-# Branch deploys configuration
-[context.branch-deploy]
-  command = "npm run build:staging"
-  
-[context.branch-deploy.environment]
-  NODE_ENV = "staging"
-  REACT_APP_API_URL = "https://staging.webwaka.com.ng"
-  REACT_APP_ENVIRONMENT = "staging"
-
-# Development context
-[context.development]
-  command = "npm run build:dev"
-  
-[context.development.environment]
-  NODE_ENV = "development"
-  REACT_APP_API_URL = "http://localhost:5000"
-  REACT_APP_ENVIRONMENT = "development"
-
-# Functions configuration (for serverless functions)
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
-  external_node_modules = ["express", "cors", "serverless-http"]
 
-# Plugin configuration
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;"
 
-[[plugins]]
-  package = "netlify-plugin-pnpm"
-
-# Form handling
-[forms]
-  spam_protection = true
-
-# Large Media configuration
-[large_media]
-  git_lfs = true
-
-# Build processing
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
-
-[build.processing.html]
-  pretty_urls = true
-
-[build.processing.images]
-  compress = true
-
-# Edge functions
-[[edge_functions]]
-  function = "auth"
-  path = "/api/auth/*"
-
-[[edge_functions]]
-  function = "ai-proxy"
-  path = "/api/ai/*"
-
-# Split testing
-[split_testing]
-  enabled = true
-
-# Analytics
-[analytics]
-  provider = "netlify"
-
-# Identity (for authentication)
-[identity]
-  url = "https://webwaka.com.ng/.netlify/identity"
-
-# Git LFS
-[lfs]
-  enabled = true
-
-# Build hooks
-[build.hooks]
-  before_build = "npm run prebuild"
-  after_build = "npm run postbuild"
-
-# Environment-specific redirects
-[context.production.redirects]
-  from = "/admin"
-  to = "/admin/dashboard"
-  status = 302
-
-# Error pages
-[[redirects]]
-  from = "/404"
-  to = "/404.html"
-  status = 404
-
-[[redirects]]
-  from = "/500"
-  to = "/500.html"
-  status = 500
-
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
