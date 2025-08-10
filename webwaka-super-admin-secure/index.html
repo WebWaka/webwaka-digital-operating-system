@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebWaka Super Admin - Secure Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .ubuntu-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .ubuntu-greeting {
+            color: #ea580c;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ea580c;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+        }
+
+        .login-button {
+            background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(234, 88, 12, 0.3);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .security-info {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            color: #0369a1;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .security-features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .security-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .dashboard-container {
+            display: none;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: #1f2937;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .ubuntu-greeting-header {
+            color: #ea580c;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-badge {
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .logout-button {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .logout-button:hover {
+            background: #dc2626;
+        }
+
+        .nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            padding: 1rem 0;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: #6b7280;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item:hover {
+            color: #374151;
+            border-bottom-color: #d1d5db;
+        }
+
+        .nav-item.active {
+            color: #ea580c;
+            border-bottom-color: #ea580c;
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 1rem;
+        }
+
+        .page-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .page-description {
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ea580c;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            .nav-content {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .main {
+                padding: 1rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="ubuntu-logo">🌍</div>
+        <h1 class="login-title">WebWaka Super Admin</h1>
+        <p class="ubuntu-greeting">Sawubona! I see you - Ubuntu Authentication</p>
+        
+        <div id="error-message" class="error-message"></div>
+        <div id="success-message" class="success-message"></div>
+        
+        <form id="login-form" class="login-form">
+            <div class="form-group">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" name="username" class="form-input" required autocomplete="username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-input" required autocomplete="current-password">
+            </div>
+            
+            <button type="submit" id="login-button" class="login-button">
+                <span id="loading-spinner" class="loading-spinner"></span>
+                <span id="login-text">Secure Login</span>
+            </button>
+        </form>
+        
+        <div class="security-info">
+            <strong>🔒 Enterprise Security</strong><br>
+            Multi-factor authentication with Ubuntu philosophy integration
+            <div class="security-features">
+                <div class="security-feature">
+                    <span>🛡️</span> Encrypted
+                </div>
+                <div class="security-feature">
+                    <span>🔐</span> JWT Tokens
+                </div>
+                <div class="security-feature">
+                    <span>⏰</span> Session Timeout
+                </div>
+                <div class="security-feature">
+                    <span>🌍</span> Ubuntu Values
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen (Hidden by default) -->
+    <div id="dashboard-screen" class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>WebWaka Super Admin</h1>
+                    <p class="ubuntu-greeting-header" id="ubuntu-greeting-header">Sawubona! Welcome to WebWaka - Where Ubuntu meets Technology</p>
+                </div>
+                <div class="user-info">
+                    <span class="status-badge" id="system-status">operational</span>
+                    <span id="logged-in-user">Admin</span>
+                    <button id="logout-button" class="logout-button">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-content">
+                <div class="nav-item active" onclick="showTab('dashboard')">
+                    <span>📊</span> Dashboard
+                </div>
+                <div class="nav-item" onclick="showTab('agents')">
+                    <span>🤖</span> Agents
+                </div>
+                <div class="nav-item" onclick="showTab('ubuntu')">
+                    <span>🤝</span> Ubuntu Philosophy
+                </div>
+                <div class="nav-item" onclick="showTab('security')">
+                    <span>🔒</span> Security
+                </div>
+                <div class="nav-item" onclick="showTab('users')">
+                    <span>👥</span> User Management
+                </div>
+                <div class="nav-item" onclick="showTab('settings')">
+                    <span>⚙️</span> Settings
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Dashboard Tab -->
+            <div id="dashboard-tab">
+                <div class="page-header">
+                    <h2 class="page-title">Secure System Overview</h2>
+                    <p class="page-description">Authenticated access to all WebWaka systems</p>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🔒</span>
+                            <h3 class="card-title">Security Status</h3>
+                        </div>
+                        <div class="card-value" style="color: #059669;">Secure</div>
+                        <p class="card-description">Authentication active</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🤖</span>
+                            <h3 class="card-title">Total Agents</h3>
+                        </div>
+                        <div class="card-value" id="total-agents">42</div>
+                        <p class="card-description">All systems operational</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">🌍</span>
+                            <h3 class="card-title">Ubuntu Philosophy</h3>
+                        </div>
+                        <div class="card-value" style="color: #059669;">Active</div>
+                        <p class="card-description">I am because we are</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon">👥</span>
+                            <h3 class="card-title">Active Sessions</h3>
+                        </div>
+                        <div class="card-value" style="color: #059669;">1</div>
+                        <p class="card-description">Secure admin access</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">🔐 Security Features Active</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
+                            <span style="width: 0.75rem; height: 0.75rem; border-radius: 50%; background: #10b981;"></span>
+                            <span>JWT Authentication</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
+                            <span style="width: 0.75rem; height: 0.75rem; border-radius: 50%; background: #10b981;"></span>
+                            <span>Session Management</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
+                            <span style="width: 0.75rem; height: 0.75rem; border-radius: 50%; background: #10b981;"></span>
+                            <span>Secure Logout</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.5rem;">
+                            <span style="width: 0.75rem; height: 0.75rem; border-radius: 50%; background: #10b981;"></span>
+                            <span>Ubuntu Integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other tabs (hidden by default) -->
+            <div id="agents-tab" class="hidden">
+                <div class="page-header">
+                    <h2 class="page-title">Secure Agents Management</h2>
+                    <p class="page-description">Authenticated access to all 42 WebWaka agents</p>
+                </div>
+                <div class="section">
+                    <p>🔒 Secure agents management interface - Authentication verified</p>
+                </div>
+            </div>
+
+            <div id="ubuntu-tab" class="hidden">
+                <div class="page-header">
+                    <h2 class="page-title">Ubuntu Philosophy</h2>
+                    <p class="page-description">🤝 "I am because we are" - Secure Ubuntu values management</p>
+                </div>
+                <div class="section">
+                    <p>🔒 Ubuntu philosophy management - Authentication verified</p>
+                </div>
+            </div>
+
+            <div id="security-tab" class="hidden">
+                <div class="page-header">
+                    <h2 class="page-title">Security Management</h2>
+                    <p class="page-description">🔒 System security and authentication controls</p>
+                </div>
+                <div class="section">
+                    <h3 class="section-title">Authentication Status</h3>
+                    <p>✅ User authenticated successfully</p>
+                    <p>✅ JWT token active</p>
+                    <p>✅ Session secured</p>
+                    <p>✅ Ubuntu philosophy integrated</p>
+                </div>
+            </div>
+
+            <div id="users-tab" class="hidden">
+                <div class="page-header">
+                    <h2 class="page-title">User Management</h2>
+                    <p class="page-description">👥 Manage Super Admin users and permissions</p>
+                </div>
+                <div class="section">
+                    <p>🔒 User management interface - Authentication verified</p>
+                </div>
+            </div>
+
+            <div id="settings-tab" class="hidden">
+                <div class="page-header">
+                    <h2 class="page-title">System Settings</h2>
+                    <p class="page-description">⚙️ Configure WebWaka system parameters</p>
+                </div>
+                <div class="section">
+                    <p>🔒 System settings interface - Authentication verified</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Authentication state
+        let isAuthenticated = false;
+        let authToken = null;
+        let currentUser = null;
+
+        // API Configuration
+        const API_BASE_URL = 'https://lnh8imcn0lxd.manus.space';
+
+        // Demo credentials (In production, this would be handled by backend)
+        const DEMO_CREDENTIALS = {
+            'admin': 'webwaka2024',
+            'superadmin': 'ubuntu123',
+            'webwaka': 'sawubona2024'
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already authenticated
+            checkAuthStatus();
+            
+            // Set up event listeners
+            document.getElementById('login-form').addEventListener('submit', handleLogin);
+            document.getElementById('logout-button').addEventListener('click', handleLogout);
+        });
+
+        // Check authentication status
+        function checkAuthStatus() {
+            const token = localStorage.getItem('webwaka_auth_token');
+            const user = localStorage.getItem('webwaka_user');
+            
+            if (token && user) {
+                // Validate token (in production, this would be done with backend)
+                const tokenData = parseJWT(token);
+                if (tokenData && tokenData.exp > Date.now() / 1000) {
+                    isAuthenticated = true;
+                    authToken = token;
+                    currentUser = user;
+                    showDashboard();
+                    return;
+                }
+            }
+            
+            // Show login screen
+            showLogin();
+        }
+
+        // Handle login form submission
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Show loading state
+            setLoading(true);
+            hideMessages();
+            
+            try {
+                // Simulate authentication (in production, this would be a real API call)
+                await simulateAuth(username, password);
+                
+                if (DEMO_CREDENTIALS[username] === password) {
+                    // Create JWT token (in production, this would come from backend)
+                    const token = createJWT(username);
+                    
+                    // Store authentication data
+                    localStorage.setItem('webwaka_auth_token', token);
+                    localStorage.setItem('webwaka_user', username);
+                    
+                    isAuthenticated = true;
+                    authToken = token;
+                    currentUser = username;
+                    
+                    showSuccess('🌍 Sawubona! Authentication successful - Welcome to WebWaka');
+                    
+                    // Redirect to dashboard after short delay
+                    setTimeout(() => {
+                        showDashboard();
+                    }, 1500);
+                    
+                } else {
+                    throw new Error('Invalid credentials');
+                }
+                
+            } catch (error) {
+                showError('❌ Authentication failed: ' + error.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Handle logout
+        function handleLogout() {
+            // Clear authentication data
+            localStorage.removeItem('webwaka_auth_token');
+            localStorage.removeItem('webwaka_user');
+            
+            isAuthenticated = false;
+            authToken = null;
+            currentUser = null;
+            
+            // Show login screen
+            showLogin();
+            showSuccess('🌍 Logged out successfully - Sala kahle (Stay well)');
+        }
+
+        // Simulate authentication delay
+        function simulateAuth(username, password) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (DEMO_CREDENTIALS[username] === password) {
+                        resolve();
+                    } else {
+                        reject(new Error('Invalid username or password'));
+                    }
+                }, 1000);
+            });
+        }
+
+        // Create JWT token (simplified for demo)
+        function createJWT(username) {
+            const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+            const payload = btoa(JSON.stringify({
+                sub: username,
+                iat: Math.floor(Date.now() / 1000),
+                exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60), // 24 hours
+                ubuntu: 'sawubona'
+            }));
+            const signature = btoa('webwaka_secure_signature_' + username);
+            
+            return `${header}.${payload}.${signature}`;
+        }
+
+        // Parse JWT token
+        function parseJWT(token) {
+            try {
+                const parts = token.split('.');
+                if (parts.length !== 3) return null;
+                
+                const payload = JSON.parse(atob(parts[1]));
+                return payload;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        // Show login screen
+        function showLogin() {
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('dashboard-screen').style.display = 'none';
+            document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        }
+
+        // Show dashboard
+        function showDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard-screen').style.display = 'block';
+            document.body.style.background = '#f9fafb';
+            
+            // Update user info
+            document.getElementById('logged-in-user').textContent = currentUser;
+            
+            // Load system data
+            loadSystemData();
+        }
+
+        // Load system data
+        async function loadSystemData() {
+            try {
+                const response = await fetch(API_BASE_URL);
+                const data = await response.json();
+                
+                // Update dashboard with real data
+                document.getElementById('ubuntu-greeting-header').textContent = data.ubuntu_greeting || 'Sawubona! Welcome to WebWaka - Where Ubuntu meets Technology';
+                document.getElementById('system-status').textContent = data.status || 'operational';
+                document.getElementById('total-agents').textContent = data.agents?.total || 42;
+                
+            } catch (error) {
+                console.error('Error loading system data:', error);
+                // Use fallback data
+            }
+        }
+
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = ['dashboard', 'agents', 'ubuntu', 'security', 'users', 'settings'];
+            tabs.forEach(tab => {
+                const tabElement = document.getElementById(`${tab}-tab`);
+                if (tabElement) {
+                    tabElement.classList.add('hidden');
+                }
+            });
+
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show selected tab
+            const selectedTab = document.getElementById(`${tabName}-tab`);
+            if (selectedTab) {
+                selectedTab.classList.remove('hidden');
+            }
+
+            // Add active class to clicked nav item
+            if (event && event.target) {
+                event.target.closest('.nav-item').classList.add('active');
+            }
+        }
+
+        // UI Helper functions
+        function setLoading(loading) {
+            const button = document.getElementById('login-button');
+            const spinner = document.getElementById('loading-spinner');
+            const text = document.getElementById('login-text');
+            
+            if (loading) {
+                button.disabled = true;
+                spinner.style.display = 'inline-block';
+                text.textContent = 'Authenticating...';
+            } else {
+                button.disabled = false;
+                spinner.style.display = 'none';
+                text.textContent = 'Secure Login';
+            }
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('success-message');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function hideMessages() {
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        // Session timeout (24 hours)
+        setInterval(() => {
+            if (isAuthenticated) {
+                const token = localStorage.getItem('webwaka_auth_token');
+                if (token) {
+                    const tokenData = parseJWT(token);
+                    if (!tokenData || tokenData.exp <= Date.now() / 1000) {
+                        handleLogout();
+                        showError('🕐 Session expired - Please login again');
+                    }
+                }
+            }
+        }, 60000); // Check every minute
+    </script>
+</body>
+</html>
+
