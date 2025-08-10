@@ -1,0 +1,47 @@
+{
+  "name": "Commission Payout",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Digital Operating System - Phase 3 Agent 15: Commission Payout Agent  Automated commission distribution systems with comprehensive support for multi-level referral payouts, performance bonuses, Ubuntu-based fair distribution, and African payment method integration.  Author: Manus AI - God-Level Super Agent and Orchestrator Created: December 2024 Version: 3.15.0",
+  "ubuntu_integration_score": 7.0,
+  "african_optimization_score": 4.0,
+  "dependencies": [
+    "import os",
+    "import json",
+    "import time",
+    "import uuid",
+    "import logging",
+    "import asyncio",
+    "import threading",
+    "from datetime import datetime, timedelta",
+    "from typing import Dict, List, Optional, Any, Union, Tuple",
+    "from dataclasses import dataclass, asdict",
+    "from pathlib import Path",
+    "from enum import Enum",
+    "import yaml",
+    "import hashlib",
+    "from decimal import Decimal, ROUND_HALF_UP",
+    "from concurrent.futures import ThreadPoolExecutor, as_completed"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "elder_integration",
+    "collective_integration",
+    "wisdom_integration"
+  ],
+  "traditional_knowledge_components": [
+    "elder_wisdom"
+  ],
+  "community_consultation_requirements": [
+    "elder_approval"
+  ],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

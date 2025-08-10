@@ -1,0 +1,38 @@
+{
+  "cultural_validation": {
+    "ubuntu_score": 8.0,
+    "principles_preserved": [],
+    "missing_principles": [
+      "community_centered_decision_making",
+      "collective_responsibility",
+      "traditional_governance_integration",
+      "elder_wisdom_consultation",
+      "consensus_building_mechanisms"
+    ],
+    "recommendations": [
+      "Implement community_centered_decision_making in Leap agent architecture",
+      "Implement collective_responsibility in Leap agent architecture",
+      "Implement traditional_governance_integration in Leap agent architecture",
+      "Implement elder_wisdom_consultation in Leap agent architecture",
+      "Implement consensus_building_mechanisms in Leap agent architecture"
+    ]
+  },
+  "traditional_validation": {
+    "traditional_knowledge_score": 1,
+    "requirements_met": [],
+    "missing_requirements": [
+      "traditional_knowledge_ownership_preservation",
+      "community_controlled_sharing",
+      "elder_consultation_validation",
+      "traditional_authority_approval",
+      "cultural_authenticity_maintenance"
+    ],
+    "recommendations": [
+      "Implement traditional_knowledge_ownership_preservation in Leap agent migration",
+      "Implement community_controlled_sharing in Leap agent migration",
+      "Implement elder_consultation_validation in Leap agent migration",
+      "Implement traditional_authority_approval in Leap agent migration",
+      "Implement cultural_authenticity_maintenance in Leap agent migration"
+    ]
+  }
+}

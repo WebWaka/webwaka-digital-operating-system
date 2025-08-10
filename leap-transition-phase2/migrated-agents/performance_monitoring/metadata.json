@@ -1,0 +1,36 @@
+{
+  "name": "Performance Monitoring",
+  "category": "performance_optimization",
+  "description": "WebWaka Performance Monitoring Agent (Agent 7) Real-Time Performance Tracking and Optimization  This agent provides comprehensive performance monitoring with: - Real-time system performance metrics - Network condition monitoring for African infrastructure - User experience tracking and optimization - Resource usage optimization - Performance alerting and automated optimization - Cultural adaptation for African business patterns",
+  "ubuntu_integration_score": 0.0,
+  "african_optimization_score": 8.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import time",
+    "import psutil",
+    "import threading",
+    "from typing import Dict, List, Optional, Any, Callable",
+    "from dataclasses import dataclass, asdict",
+    "from datetime import datetime, timedelta",
+    "from collections import deque, defaultdict",
+    "import statistics",
+    "import requests",
+    "from concurrent.futures import ThreadPoolExecutor",
+    "import sqlite3",
+    "import os"
+  ],
+  "cultural_intelligence_features": [
+    "cultural_integration"
+  ],
+  "traditional_knowledge_components": [],
+  "community_consultation_requirements": [],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "Tourism Management",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Tourism Management Systems Agent (Agent 14) Comprehensive Tourism Management with African Cultural Tourism Optimization  This agent provides comprehensive tourism management capabilities with: - Tourism planning and destination management with African cultural integration - Hospitality management systems with traditional accommodation integration - Tour and activity management with cultural experience optimization - Tourist safety and security systems with community-based protection - Cultural tourism preservation and promotion - Mobile-first interfaces optimized for African connectivity - Voice-first commands in 14+ African languages - Ubuntu philosophy integration for community-based tourism",
+  "ubuntu_integration_score": 6.0,
+  "african_optimization_score": 6.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import time",
+    "import sqlite3",
+    "import os",
+    "from typing import Dict, List, Optional, Any, Tuple",
+    "from dataclasses import dataclass, asdict",
+    "from datetime import datetime, timedelta",
+    "from enum import Enum",
+    "import statistics",
+    "import random",
+    "import uuid",
+    "import hashlib"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "consensus_integration",
+    "governance_integration",
+    "wisdom_integration",
+    "heritage_integration"
+  ],
+  "traditional_knowledge_components": [
+    "community_ownership"
+  ],
+  "community_consultation_requirements": [],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}

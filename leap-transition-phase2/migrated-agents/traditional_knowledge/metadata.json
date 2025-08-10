@@ -1,0 +1,46 @@
+{
+  "name": "Traditional Knowledge",
+  "category": "cultural_intelligence",
+  "description": "WebWaka Digital Operating System - Traditional Knowledge Agent (Agent 26) Indigenous business practice integration with ancestral wisdom systems, traditional economic models, cultural business protocols, and intergenerational knowledge transfer  Author: WebWaka Development Team Version: 4.0.0 License: MIT",
+  "ubuntu_integration_score": 10.0,
+  "african_optimization_score": 3.0,
+  "dependencies": [
+    "import asyncio",
+    "import json",
+    "import logging",
+    "import re",
+    "from datetime import datetime",
+    "from typing import Dict, List, Any, Optional, Tuple",
+    "from dataclasses import dataclass, asdict",
+    "from enum import Enum",
+    "import sqlite3",
+    "from pathlib import Path",
+    "import uuid",
+    "import random"
+  ],
+  "cultural_intelligence_features": [
+    "ubuntu_integration",
+    "community_integration",
+    "traditional_integration",
+    "cultural_integration",
+    "elder_integration",
+    "consensus_integration",
+    "collective_integration",
+    "governance_integration",
+    "wisdom_integration"
+  ],
+  "traditional_knowledge_components": [
+    "traditional_knowledge",
+    "oral_tradition",
+    "elder_wisdom",
+    "community_ownership"
+  ],
+  "community_consultation_requirements": [],
+  "performance_requirements": {
+    "response_time": "sub-200ms",
+    "availability": "99.9%",
+    "scalability": "millions of users",
+    "mobile_optimization": "African infrastructure",
+    "offline_capability": "low-connectivity areas"
+  }
+}
