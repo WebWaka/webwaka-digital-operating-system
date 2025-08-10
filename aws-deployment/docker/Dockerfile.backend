@@ -1,0 +1,62 @@
+# WebWaka Digital Operating System - Backend Dockerfile
+# Ubuntu Philosophy: "Sawubona! I see you" - Building with community values
+
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    DEBIAN_FRONTEND=noninteractive \
+    UBUNTU_GREETING="Sawubona! Welcome to WebWaka - Where Ubuntu meets Technology"
+
+# Set work directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    libpq-dev \
+    curl \
+    wget \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY backend/ ./backend/
+COPY src/ ./src/
+COPY *.py ./
+COPY *.md ./
+
+# Create necessary directories
+RUN mkdir -p /app/logs /app/uploads /app/static
+
+# Create non-root user for security (Ubuntu principle: community safety)
+RUN groupadd -r webwaka && useradd -r -g webwaka webwaka
+RUN chown -R webwaka:webwaka /app
+USER webwaka
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/api/health || exit 1
+
+# Expose port
+EXPOSE 8000
+
+# Ubuntu Philosophy Environment Variables
+ENV UBUNTU_PHILOSOPHY="I am because we are" \
+    TRADITIONAL_LEADERSHIP="Respect for elders and wisdom" \
+    FAIR_SHARING="Ubuntu fair distribution" \
+    CULTURAL_SENSITIVITY="African values first" \
+    AFRICAN_OPTIMIZATION="Mobile-first, low-bandwidth, offline-capable" \
+    COMMUNITY_CENTERED="Technology serving community prosperity"
+
+# Start command
+CMD ["python", "-m", "gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--worker-class", "gevent", "--worker-connections", "1000", "--timeout", "120", "--keepalive", "5", "--max-requests", "1000", "--max-requests-jitter", "100", "--preload", "backend.robust_server:app"]
+
