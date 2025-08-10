@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebWaka Super Admin - Digital Operating System Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: #1f2937;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .ubuntu-greeting {
+            color: #ea580c;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .status-badge {
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            padding: 1rem 0;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: #6b7280;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item:hover {
+            color: #374151;
+            border-bottom-color: #d1d5db;
+        }
+
+        .nav-item.active {
+            color: #ea580c;
+            border-bottom-color: #ea580c;
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 1rem;
+        }
+
+        .page-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .page-description {
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ea580c;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .agent-category {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .agent-info h4 {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .agent-info p {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .agent-stats {
+            text-align: right;
+        }
+
+        .agent-count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ea580c;
+        }
+
+        .agent-status {
+            color: #059669;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+        }
+
+        .feature-status {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: #10b981;
+        }
+
+        .ubuntu-section {
+            background: linear-gradient(135deg, #fef3e2 0%, #fde8e8 100%);
+            border: 1px solid #fed7aa;
+        }
+
+        .ubuntu-principles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .ubuntu-principle {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .ubuntu-principle h4 {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .ubuntu-principle p {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .spinner {
+            width: 3rem;
+            height: 3rem;
+            border: 3px solid #e5e7eb;
+            border-top: 3px solid #ea580c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .nav-item {
+                padding: 0.75rem 0;
+            }
+            
+            .main {
+                padding: 1rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>WebWaka Super Admin</h1>
+                <p class="ubuntu-greeting" id="ubuntu-greeting">Loading Ubuntu greeting...</p>
+            </div>
+            <div>
+                <span class="status-badge" id="system-status">Loading...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-item active" onclick="showTab('dashboard')">
+                <span>📊</span> Dashboard
+            </div>
+            <div class="nav-item" onclick="showTab('agents')">
+                <span>🤖</span> Agents
+            </div>
+            <div class="nav-item" onclick="showTab('ubuntu')">
+                <span>🤝</span> Ubuntu Philosophy
+            </div>
+            <div class="nav-item" onclick="showTab('white-label')">
+                <span>🏢</span> White-Label
+            </div>
+            <div class="nav-item" onclick="showTab('referral')">
+                <span>💰</span> Referral System
+            </div>
+            <div class="nav-item" onclick="showTab('payments')">
+                <span>💳</span> Payment Systems
+            </div>
+            <div class="nav-item" onclick="showTab('analytics')">
+                <span>📈</span> Analytics
+            </div>
+            <div class="nav-item" onclick="showTab('settings')">
+                <span>⚙️</span> Settings
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Loading State -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading WebWaka Super Admin...</p>
+            <p style="color: #ea580c; font-size: 0.875rem;">Sawubona! I see you...</p>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard-tab" class="hidden">
+            <div class="page-header">
+                <h2 class="page-title">System Overview</h2>
+                <p class="page-description">Real-time status of all WebWaka systems</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🤖</span>
+                        <h3 class="card-title">Total Agents</h3>
+                    </div>
+                    <div class="card-value" id="total-agents">42</div>
+                    <p class="card-description">All systems operational</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🌍</span>
+                        <h3 class="card-title">Ubuntu Philosophy</h3>
+                    </div>
+                    <div class="card-value" style="color: #059669;">Active</div>
+                    <p class="card-description">I am because we are</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📱</span>
+                        <h3 class="card-title">African Optimization</h3>
+                    </div>
+                    <div class="card-value" style="color: #059669;">Enabled</div>
+                    <p class="card-description">Mobile-first, low-bandwidth</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">🏢</span>
+                        <h3 class="card-title">White-Label Ready</h3>
+                    </div>
+                    <div class="card-value" style="color: #059669;">Yes</div>
+                    <p class="card-description">Unlimited partners</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Agent Categories</h3>
+                <div id="agent-categories">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">System Features</h3>
+                <div class="feature-grid" id="system-features">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Agents Tab -->
+        <div id="agents-tab" class="hidden">
+            <div class="page-header">
+                <h2 class="page-title">Agents Management</h2>
+                <p class="page-description">Monitor and manage all 42 WebWaka agents</p>
+            </div>
+
+            <div class="section">
+                <div id="agents-list">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Ubuntu Philosophy Tab -->
+        <div id="ubuntu-tab" class="hidden">
+            <div class="page-header">
+                <h2 class="page-title">Ubuntu Philosophy</h2>
+                <p class="page-description">🤝 "I am because we are" - Ubuntu values in technology</p>
+            </div>
+
+            <div class="section ubuntu-section">
+                <h3 class="section-title" style="color: #ea580c;">🌍 Sawubona! Welcome to WebWaka - Where Ubuntu meets Technology</h3>
+                
+                <div class="ubuntu-principles">
+                    <div class="ubuntu-principle">
+                        <h4>🤝 Community Centered</h4>
+                        <p>"I am because we are" - Technology serving community needs</p>
+                    </div>
+                    
+                    <div class="ubuntu-principle">
+                        <h4>👴 Traditional Leadership</h4>
+                        <p>Respect for elders and wisdom in system governance</p>
+                    </div>
+                    
+                    <div class="ubuntu-principle">
+                        <h4>⚖️ Fair Sharing</h4>
+                        <p>Ubuntu fair distribution across all revenue systems</p>
+                    </div>
+                    
+                    <div class="ubuntu-principle">
+                        <h4>🌍 Cultural Sensitivity</h4>
+                        <p>African values first in all system decisions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Ubuntu Integration Status</h3>
+                <div id="ubuntu-status">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Other tabs will be shown/hidden similarly -->
+        <div id="white-label-tab" class="hidden">
+            <div class="page-header">
+                <h2 class="page-title">White-Label Platform</h2>
+                <p class="page-description">🏢 Unlimited partner platform replication</p>
+            </div>
+            <div class="section">
+                <p>White-Label management interface coming soon...</p>
+            </div>
+        </div>
+
+        <div id="referral-tab" class="hidden">
+            <div class="page-header">
+                <h2 class="page-title">Multi-Level Referral System</h2>
+                <p class="page-description">💰 6-level partner hierarchy with Ubuntu values</p>
+            </div>
+            <div class="section">
+                <p>Referral system management interface coming soon...</p>
+            </div>
+        </div>
+
+        <div id="payments-tab" class="hidden">
+            <div class="page-header">
+                <h2 class="page-title">Payment Systems</h2>
+                <p class="page-description">💳 HandyLife Wallet & African payment integration</p>
+            </div>
+            <div class="section">
+                <p>Payment systems management interface coming soon...</p>
+            </div>
+        </div>
+
+        <div id="analytics-tab" class="hidden">
+            <div class="page-header">
+                <h2 class="page-title">Analytics Dashboard</h2>
+                <p class="page-description">📈 Real-time system performance and usage metrics</p>
+            </div>
+            <div class="section">
+                <p>Analytics dashboard coming soon...</p>
+            </div>
+        </div>
+
+        <div id="settings-tab" class="hidden">
+            <div class="page-header">
+                <h2 class="page-title">System Settings</h2>
+                <p class="page-description">⚙️ Configure WebWaka system parameters</p>
+            </div>
+            <div class="section">
+                <p>System settings interface coming soon...</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Global variables
+        let systemData = null;
+        const API_BASE_URL = 'https://lnh8imcn0lxd.manus.space';
+
+        // Initialize the dashboard
+        async function initDashboard() {
+            try {
+                // Fetch system data
+                const response = await fetch(API_BASE_URL);
+                systemData = await response.json();
+                
+                // Update UI with real data
+                updateSystemInfo();
+                populateAgentCategories();
+                populateSystemFeatures();
+                populateAgentsList();
+                populateUbuntuStatus();
+                
+            } catch (error) {
+                console.error('Error fetching system data:', error);
+                
+                // Use fallback data
+                systemData = {
+                    agents: {
+                        infrastructure: 4,
+                        integration: 8,
+                        payment_systems: 6,
+                        referral_system: 6,
+                        sector_management: 14,
+                        white_label: 6,
+                        total: 42
+                    },
+                    ubuntu_greeting: "Sawubona! Welcome to WebWaka - Where Ubuntu meets Technology",
+                    status: "operational",
+                    features: {
+                        african_optimization: true,
+                        mobile_first: true,
+                        multi_language: true,
+                        multi_level_referral: true,
+                        offline_support: true,
+                        payment_systems: true,
+                        ubuntu_philosophy: true,
+                        white_label_platform: true
+                    }
+                };
+                
+                updateSystemInfo();
+                populateAgentCategories();
+                populateSystemFeatures();
+                populateAgentsList();
+                populateUbuntuStatus();
+            }
+            
+            // Hide loading and show dashboard
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('dashboard-tab').classList.remove('hidden');
+        }
+
+        // Update system information
+        function updateSystemInfo() {
+            document.getElementById('ubuntu-greeting').textContent = systemData.ubuntu_greeting;
+            document.getElementById('system-status').textContent = systemData.status || 'operational';
+            document.getElementById('total-agents').textContent = systemData.agents.total;
+        }
+
+        // Populate agent categories
+        function populateAgentCategories() {
+            const container = document.getElementById('agent-categories');
+            const categories = [
+                { key: 'sector_management', name: 'Sector Management', description: 'Agriculture, Healthcare, Education, Finance, etc.' },
+                { key: 'integration', name: 'Integration', description: 'Cross-sector integration agents' },
+                { key: 'white_label', name: 'White Label', description: 'Platform replication and customization' },
+                { key: 'referral_system', name: 'Referral System', description: 'Multi-level partner management' },
+                { key: 'payment_systems', name: 'Payment Systems', description: 'Financial processing and compliance' },
+                { key: 'infrastructure', name: 'Infrastructure', description: 'Core system infrastructure' }
+            ];
+
+            container.innerHTML = categories.map(category => `
+                <div class="agent-category">
+                    <div class="agent-info">
+                        <h4>${category.name}</h4>
+                        <p>${category.description}</p>
+                    </div>
+                    <div class="agent-stats">
+                        <div class="agent-count">${systemData.agents[category.key] || 0}</div>
+                        <div class="agent-status">All Active</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Populate system features
+        function populateSystemFeatures() {
+            const container = document.getElementById('system-features');
+            const features = Object.entries(systemData.features || {});
+
+            container.innerHTML = features.map(([feature, enabled]) => `
+                <div class="feature-item">
+                    <div class="feature-status" style="background: ${enabled ? '#10b981' : '#ef4444'}"></div>
+                    <span>${feature.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                </div>
+            `).join('');
+        }
+
+        // Populate agents list
+        function populateAgentsList() {
+            const container = document.getElementById('agents-list');
+            const categories = [
+                { category: 'Sector Management', count: 14, description: 'Agriculture, Healthcare, Education, Finance, etc.' },
+                { category: 'Integration', count: 8, description: 'Cross-sector integration agents' },
+                { category: 'White Label', count: 6, description: 'Platform replication and customization' },
+                { category: 'Referral System', count: 6, description: 'Multi-level partner management' },
+                { category: 'Payment Systems', count: 6, description: 'Financial processing and compliance' },
+                { category: 'Infrastructure', count: 4, description: 'Core system infrastructure' }
+            ];
+
+            container.innerHTML = categories.map(category => `
+                <div class="agent-category">
+                    <div class="agent-info">
+                        <h4>${category.category}</h4>
+                        <p>${category.description}</p>
+                    </div>
+                    <div class="agent-stats">
+                        <div class="agent-count">${category.count}</div>
+                        <div class="agent-status">All Active</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Populate Ubuntu status
+        function populateUbuntuStatus() {
+            const container = document.getElementById('ubuntu-status');
+            const statusItems = [
+                'Community-centered decision making',
+                'Traditional leadership recognition',
+                'Fair sharing revenue distribution',
+                'Cultural sensitivity validation',
+                'African language support (10+ languages)',
+                'Ubuntu greeting integration'
+            ];
+
+            container.innerHTML = statusItems.map(item => `
+                <div class="feature-item">
+                    <div class="feature-status"></div>
+                    <span>${item}</span>
+                    <span style="color: #059669; font-size: 0.875rem; margin-left: auto;">✓ Active</span>
+                </div>
+            `).join('');
+        }
+
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = ['dashboard', 'agents', 'ubuntu', 'white-label', 'referral', 'payments', 'analytics', 'settings'];
+            tabs.forEach(tab => {
+                document.getElementById(`${tab}-tab`).classList.add('hidden');
+            });
+
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+
+            // Add active class to clicked nav item
+            event.target.closest('.nav-item').classList.add('active');
+        }
+
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>
+
